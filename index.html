@@ -126,7 +126,7 @@
         </div>
 
         <div id="menu-cont">
-            <div class="categoria-titulo">Seleccione sus Sopas</div>
+            <div class="categoria-titulo">Seleccione sus Sopas / Almuerzos</div>
             <div id="items-sopas"></div>
 
             <div class="categoria-titulo">Arroz Chino</div>
@@ -134,9 +134,6 @@
 
             <div class="categoria-titulo">Combos Especiales</div>
             <div id="items-combos"></div>
-
-            <div class="categoria-titulo">Otros Almuerzos</div>
-            <div id="items-almuerzos"></div>
         </div>
 
         <label for="pago-metodo">Forma de Pago:</label>
@@ -161,11 +158,11 @@
     const APP_ACTIVA = true; 
 
     const menuData = {
-        // SOPAS SEPARADAS
+        // SOPAS Y FRIJOLES INTEGRADOS
         "mote": { n: "Sopa de Mote", p: 21000, cat: "sopas" },
         "mondongo": { n: "Sopa de Mondongo", p: 21000, cat: "sopas" },
         "gallina": { n: "Sopa de Gallina", p: 21000, cat: "sopas" },
-        "frijoles": { n: "Frijoles con Sopa del día", p: 20000, cat: "almuerzos" },
+        "frijoles": { n: "Frijoles (con sopa del día)", p: 20000, cat: "sopas" },
         
         // ARROZ CHINO
         "arroz1": { n: "Arroz Chino Personal", p: 17000, cat: "arroz" },
@@ -191,7 +188,7 @@
             document.getElementById('app-content').classList.add('oculto');
             return;
         }
-        if (!localStorage.getItem('p_user_v3')) {
+        if (!localStorage.getItem('p_user_v4')) {
             document.getElementById('registro').classList.remove('oculto');
             document.getElementById('menu-cont').classList.add('oculto');
         }
@@ -221,7 +218,7 @@
     function guardarU() {
         const n = document.getElementById('r-nom').value, d = document.getElementById('r-dir').value, t = document.getElementById('r-tel').value;
         if(n && d && t) {
-            localStorage.setItem('p_user_v3', JSON.stringify({n, d, t}));
+            localStorage.setItem('p_user_v4', JSON.stringify({n, d, t}));
             location.reload();
         } else alert("Por favor completa los datos de envío.");
     }
@@ -235,7 +232,7 @@
     }
 
     function enviarPedido() {
-        let total = 0, detalle = "", user = JSON.parse(localStorage.getItem('p_user_v3')), nPed = localStorage.getItem('p_cons');
+        let total = 0, detalle = "", user = JSON.parse(localStorage.getItem('p_user_v4')), nPed = localStorage.getItem('p_cons');
         const pago = document.getElementById('pago-metodo').value;
 
         for (let k in carrito) {
