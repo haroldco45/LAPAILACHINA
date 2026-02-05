@@ -10,18 +10,17 @@
             --dorado: #FFD700;
             --negro: #1a1a1a;
             --gris-card: #222222;
-            --blanco: #ffffff;
+            --verde-precio: #2ecc71;
         }
 
         body {
             font-family: 'Segoe UI', sans-serif;
             background-color: var(--negro);
-            color: var(--blanco);
+            color: white;
             margin: 0;
-            padding-bottom: 100px;
+            padding-bottom: 110px;
         }
 
-        /* PANTALLA DE BLOQUEO (CONTROL TOTAL DESDE GITHUB) */
         #bloqueo-pago {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 99999; display: none;
@@ -32,65 +31,60 @@
         header {
             background-color: var(--rojo);
             text-align: center;
-            padding: 20px;
+            padding: 15px;
             border-bottom: 4px solid var(--dorado);
         }
 
-        .logo-img {
-            max-width: 120px;
-            height: auto;
-            margin-bottom: 10px;
-            border-radius: 10px;
-        }
-
-        .titulo-empresa { font-size: 26px; font-weight: bold; color: var(--dorado); margin: 0; text-transform: uppercase; }
-        .firma-vibras { font-size: 11px; color: white; margin-top: 2px; letter-spacing: 1px; font-style: italic; font-weight: 300; }
-        .subtitulo { font-size: 13px; margin-top: 8px; opacity: 0.9; line-height: 1.4; }
+        .logo-img { max-width: 100px; margin-bottom: 5px; }
+        .titulo-app { font-size: 24px; font-weight: bold; color: var(--dorado); margin: 0; text-transform: uppercase; }
+        .firma { font-size: 10px; color: white; margin-top: 2px; font-style: italic; letter-spacing: 1px; }
 
         .container { padding: 15px; }
+        .categoria-titulo { 
+            color: var(--dorado); 
+            border-bottom: 1px solid var(--rojo); 
+            padding: 10px 0; 
+            margin-top: 20px;
+            text-transform: uppercase;
+            font-size: 1.1em;
+        }
 
-        /* Estilo de Tarjetas */
         .plato-card {
             background: var(--gris-card);
-            border-radius: 15px;
+            border-radius: 12px;
             padding: 15px;
-            border-left: 6px solid var(--rojo);
+            margin-top: 10px;
+            border-left: 5px solid var(--rojo);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
 
-        .plato-info .nombre { color: var(--dorado); font-weight: bold; font-size: 1.2em; }
-        .plato-info .desc { font-size: 0.85em; color: #bbb; margin: 5px 0; }
-        .plato-info .precio { color: #2ecc71; font-weight: bold; font-size: 1.2em; }
+        .plato-info .nombre { color: var(--dorado); font-weight: bold; font-size: 1.05em; }
+        .plato-info .precio { color: var(--verde-precio); font-weight: bold; font-size: 1.1em; margin-top: 5px; }
 
-        .controles { display: flex; align-items: center; gap: 15px; }
+        .controles { display: flex; align-items: center; gap: 12px; }
         .btn-accion {
             background: var(--rojo); color: white; border: none;
-            width: 42px; height: 42px; border-radius: 50%;
-            font-size: 24px; font-weight: bold; cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            width: 35px; height: 35px; border-radius: 50%;
+            font-size: 20px; font-weight: bold; cursor: pointer;
         }
 
-        input, textarea {
-            width: 100%; background: #111; color: white;
-            border: 1px solid #333; border-radius: 10px; padding: 14px;
-            margin-top: 10px; box-sizing: border-box; font-size: 16px;
+        textarea {
+            width: 100%; height: 80px; background: #111; color: white;
+            border: 1px solid #333; border-radius: 8px; padding: 10px;
+            margin-top: 15px; box-sizing: border-box;
         }
 
         .footer {
             position: fixed; bottom: 0; width: 100%; background: #000;
             padding: 15px 20px; border-top: 2px solid #333;
             display: flex; justify-content: space-between; align-items: center; box-sizing: border-box;
-            z-index: 100;
         }
 
-        .btn-whatsapp {
+        .btn-pedir {
             background: #25D366; color: white; border: none;
-            padding: 14px 25px; border-radius: 30px; font-weight: bold;
-            cursor: pointer; font-size: 16px;
-            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+            padding: 12px 25px; border-radius: 25px; font-weight: bold; cursor: pointer;
         }
 
         .oculto { display: none !important; }
@@ -99,145 +93,133 @@
 <body>
 
 <div id="bloqueo-pago">
-    <h1 style="font-size: 70px; margin: 0;">🏮</h1>
-    <h2 style="color: var(--dorado); letter-spacing: 2px;">SERVICIO SUSPENDIDO</h2>
-    <p>La licencia de esta aplicación ha expirado o se encuentra en mantenimiento técnico.</p>
-    <p>Para reactivar el sistema de pedidos, por favor contacte al desarrollador.</p>
+    <h1 style="color: var(--dorado);">🏮</h1>
+    <h2>SERVICIO SUSPENDIDO</h2>
+    <p>Contacte al administrador para reactivar su licencia.</p>
 </div>
 
 <div id="app-content">
     <header>
-        <img src="paila-china.png" alt="Logo La Paila China" class="logo-img" onerror="this.style.display='none'">
-        
-        <div class="titulo-empresa">LA PAILA CHINA</div>
-        <div class="firma-vibras">Hecha por Vibras Positivas</div>
-        
-        <div class="subtitulo">
-            📍 Sector Principal, Caucasia<br>
-            📞 Domicilios: 311 770 0431
-        </div>
+        <img src="paila-china.png" class="logo-img" onerror="this.style.display='none'">
+        <div class="titulo-app">LA PAILA CHINA</div>
+        <div class="firma">Hecha por Vibras Positivas</div>
+        <div style="font-size: 11px; margin-top: 5px;">📍 Caucasia | 📞 311 770 0431</div>
     </header>
 
     <div class="container">
-        <div id="seccion-registro" class="oculto">
-            <h3 style="color: var(--dorado); text-align: center; margin-top: 0;">Datos del Domicilio</h3>
-            <p style="text-align: center; font-size: 13px; color: #ccc;">Ingresa tus datos para procesar tu pedido por WhatsApp.</p>
-            <input type="text" id="user-nom" placeholder="Nombre Completo">
-            <input type="text" id="user-dir" placeholder="Dirección Exacta">
-            <input type="tel" id="user-tel" placeholder="Número Celular">
-            <button onclick="guardarDatos()" class="btn-whatsapp" style="width: 100%; background: var(--rojo); margin-top: 15px;">GUARDAR Y VER MENÚ</button>
+        <div id="registro" class="oculto">
+            <h3 style="text-align: center; color: var(--dorado);">Datos de Entrega</h3>
+            <input type="text" id="r-nom" placeholder="Nombre Completo" style="width:100%; padding:12px; margin-bottom:10px; border-radius:8px; border:none; background:#111; color:white;">
+            <input type="text" id="r-dir" placeholder="Dirección Exacta" style="width:100%; padding:12px; margin-bottom:10px; border-radius:8px; border:none; background:#111; color:white;">
+            <input type="tel" id="r-tel" placeholder="Celular" style="width:100%; padding:12px; margin-bottom:10px; border-radius:8px; border:none; background:#111; color:white;">
+            <button onclick="guardarU()" class="btn-pedir" style="width: 100%; background: var(--rojo);">ENTRAR AL MENÚ</button>
         </div>
 
-        <div id="seccion-menu">
-            <div class="plato-card">
-                <div class="plato-info">
-                    <div class="nombre">Arroz Especial</div>
-                    <div class="desc">Lomo, pollo, raíces chinas y salsa soja.</div>
-                    <div class="precio">$28.000</div>
-                </div>
-                <div class="controles">
-                    <button class="btn-accion" onclick="modificarCantidad(-1)">-</button>
-                    <span id="cantidad-txt" style="font-size: 22px; font-weight: bold; color: var(--dorado);">0</span>
-                    <button class="btn-accion" onclick="modificarCantidad(1)">+</button>
-                </div>
-            </div>
+        <div id="menu-cont">
+            <div class="categoria-titulo">Almuerzos con Sopa</div>
+            <div id="items-almuerzos"></div>
 
-            <h3 style="margin-top: 30px; font-size: 1.1em; border-bottom: 1px solid #333; padding-bottom: 8px;">Notas del Pedido</h3>
-            <textarea id="pedido-obs" placeholder="Ej: Traer cambio de 50 mil, casa azul de rejas, sin cebolla..."></textarea>
+            <div class="categoria-titulo">Arroz Chino</div>
+            <div id="items-arroz"></div>
+
+            <div class="categoria-titulo">Combos Especiales</div>
+            <div id="items-combos"></div>
         </div>
+
+        <textarea id="obs" placeholder="Observaciones: (Ej. Sin cebolla, casa de rejas...)"></textarea>
     </div>
 
     <div class="footer">
-        <div>
-            <div style="font-size: 0.8em; color: #aaa;">Total a pagar:</div>
-            <div id="total-val" style="color: var(--dorado); font-weight: bold; font-size: 1.4em;">$0</div>
-        </div>
-        <button class="btn-whatsapp" onclick="enviarPedido()">PEDIR POR WHATSAPP</button>
+        <div style="font-weight: bold;">Total: <span id="total-val" style="color: var(--dorado);">$0</span></div>
+        <button class="btn-pedir" onclick="enviarPedido()">Pedir por WhatsApp</button>
     </div>
 </div>
 
 <script>
-    /* ==========================================
-       CONTROL DE SUSCRIPCIÓN (LLAVE MAESTRA)
-       ========================================== */
-    const APP_ACTIVA = true; // CAMBIA A "false" PARA BLOQUEAR DESDE GITHUB
-    /* ========================================== */
+    const APP_ACTIVA = true; // CONTROL DE COBRO
 
-    let cantidad = 0;
-    const precioUnidad = 28000;
+    const menuData = {
+        // ALMUERZOS
+        "mote": { n: "Mote, Mondongo o Sopa de Gallina", p: 21000, cat: "almuerzos" },
+        "frijoles": { n: "Frijoles o Sopa del día", p: 20000, cat: "almuerzos" },
+        // ARROZ CHINO
+        "arroz1": { n: "Arroz Chino Personal", p: 17000, cat: "arroz" },
+        "arroz2": { n: "Arroz Chino 2 Personas", p: 23000, cat: "arroz" },
+        "arroz4": { n: "Arroz Chino 4 Personas", p: 32000, cat: "arroz" },
+        "arroz6": { n: "Arroz Chino 6 Personas", p: 40000, cat: "arroz" },
+        "arroz9": { n: "Arroz Chino 9 Personas", p: 50000, cat: "arroz" },
+        // COMBOS
+        "mega": { n: "1 Pollo + Arroz Mega", p: 73000, cat: "combos" },
+        "grande": { n: "1 Pollo + Arroz Grande", p: 63000, cat: "combos" },
+        "mediano": { n: "1/2 Pollo + Arroz Mediano", p: 45000, cat: "combos" },
+        "cuarto": { n: "1/4 Pollo + Arroz", p: 31000, cat: "combos" },
+        "presa_p": { n: "1 Presa + Arroz Personal", p: 22000, cat: "combos" },
+        "presa_c": { n: "1 Presa + Arroz + Chop Suey", p: 25000, cat: "combos" }
+    };
 
-    window.onload = function() {
-        // Verificar si la aplicación está habilitada
+    let carrito = {};
+
+    window.onload = () => {
         if (!APP_ACTIVA) {
             document.getElementById('bloqueo-pago').style.display = 'flex';
             document.getElementById('app-content').classList.add('oculto');
             return;
         }
-
-        // Cargar datos de usuario si existen
-        const userSaved = localStorage.getItem('paila_user_info');
-        if (!userSaved) {
-            document.getElementById('seccion-registro').classList.remove('oculto');
-            document.getElementById('seccion-menu').classList.add('oculto');
+        if (!localStorage.getItem('p_user')) {
+            document.getElementById('registro').classList.remove('oculto');
+            document.getElementById('menu-cont').classList.add('oculto');
         }
-
-        // Inicializar contador de pedidos
-        if (!localStorage.getItem('paila_consec')) {
-            localStorage.setItem('paila_consec', 1);
-        }
+        renderMenu();
     };
 
-    function guardarDatos() {
-        const n = document.getElementById('user-nom').value;
-        const d = document.getElementById('user-dir').value;
-        const t = document.getElementById('user-tel').value;
-        
-        if (n && d && t) {
-            localStorage.setItem('paila_user_info', JSON.stringify({nombre: n, direccion: d, telefono: t}));
-            location.reload();
-        } else {
-            alert("Por favor completa todos los campos para poder continuar.");
+    function renderMenu() {
+        for (let id in menuData) {
+            const item = menuData[id];
+            const html = `
+                <div class="plato-card">
+                    <div class="plato-info">
+                        <div class="nombre">${item.n}</div>
+                        <div class="precio">$${item.p.toLocaleString('es-CO')}</div>
+                    </div>
+                    <div class="controles">
+                        <button class="btn-accion" onclick="sumar('${id}', -1)">-</button>
+                        <span id="cant-${id}" style="font-weight:bold; width:20px; text-align:center;">0</span>
+                        <button class="btn-accion" onclick="sumar('${id}', 1)">+</button>
+                    </div>
+                </div>`;
+            document.getElementById('items-' + item.cat).innerHTML += html;
         }
     }
 
-    function modificarCantidad(valor) {
-        cantidad = Math.max(0, cantidad + valor);
-        document.getElementById('cantidad-txt').innerText = cantidad;
-        document.getElementById('total-val').innerText = "$" + (cantidad * precioUnidad).toLocaleString('es-CO');
+    function guardarU() {
+        const n = document.getElementById('r-nom').value, d = document.getElementById('r-dir').value, t = document.getElementById('r-tel').value;
+        if(n && d && t) {
+            localStorage.setItem('p_user', JSON.stringify({n, d, t}));
+            location.reload();
+        } else alert("Llena todos los campos.");
+    }
+
+    function sumar(id, v) {
+        carrito[id] = Math.max(0, (carrito[id] || 0) + v);
+        document.getElementById('cant-' + id).innerText = carrito[id];
+        let total = 0;
+        for (let k in carrito) total += carrito[k] * menuData[k].p;
+        document.getElementById('total-val').innerText = "$" + total.toLocaleString('es-CO');
     }
 
     function enviarPedido() {
-        if (cantidad === 0) return alert("Por favor, agrega al menos un plato a tu pedido.");
+        let total = 0, detalle = "", user = JSON.parse(localStorage.getItem('p_user'));
+        for (let k in carrito) {
+            if (carrito[k] > 0) {
+                total += carrito[k] * menuData[k].p;
+                detalle += `• ${carrito[k]}x ${menuData[k].n} ($${(carrito[k] * menuData[k].p).toLocaleString('es-CO')})\n`;
+            }
+        }
+        if (total === 0) return alert("Agrega algo al pedido.");
         
-        const user = JSON.parse(localStorage.getItem('paila_user_info'));
-        const nPedido = localStorage.getItem('paila_consec');
-        const obs = document.getElementById('pedido-obs').value || 'Sin observaciones adicionales';
-        const ahora = new Date().toLocaleString("es-CO", {timeZone: "America/Bogota"});
-
-        let texto = `🏮 *NUEVO PEDIDO: LA PAILA CHINA* 🏮\n`;
-        texto += `------------------------------------------\n`;
-        texto += `*Pedido No:* #${nPedido}\n`;
-        texto += `*Fecha:* ${ahora}\n\n`;
-        texto += `*CLIENTE:* ${user.nombre}\n`;
-        texto += `*DIRECCIÓN:* ${user.direccion}\n`;
-        texto += `*TELÉFONO:* ${user.telefono}\n\n`;
-        texto += `*DETALLE DEL PEDIDO:* \n`;
-        texto += `• ${cantidad}x Arroz Especial ($${(cantidad * precioUnidad).toLocaleString('es-CO')})\n\n`;
-        texto += `📝 *OBS:* ${obs}\n`;
-        texto += `------------------------------------------\n`;
-        texto += `*TOTAL A PAGAR: $${(cantidad * precioUnidad).toLocaleString('es-CO')}*`;
-
-        // Incrementar el número de pedido para la próxima
-        localStorage.setItem('paila_consec', parseInt(nPedido) + 1);
-
-        // Número de WhatsApp del restaurante
-        const whatsappRestaurante = "573117700431";
-        
-        // Abrir enlace de WhatsApp
-        const url = `https://wa.me/${whatsappRestaurante}?text=${encodeURIComponent(texto)}`;
-        window.open(url, '_blank');
+        let msg = `🏮 *NUEVO PEDIDO: LA PAILA CHINA* 🏮\n\n*CLIENTE:* ${user.n}\n*DIR:* ${user.d}\n*TEL:* ${user.t}\n\n*DETALLE:*\n${detalle}\n*TOTAL: $${total.toLocaleString('es-CO')}*\n\n*OBS:* ${document.getElementById('obs').value || 'Ninguna'}`;
+        window.open(`https://wa.me/573117700431?text=${encodeURIComponent(msg)}`, '_blank');
     }
 </script>
-
 </body>
 </html>
