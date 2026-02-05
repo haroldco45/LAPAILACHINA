@@ -18,7 +18,7 @@
             background-color: var(--negro);
             color: white;
             margin: 0;
-            padding-bottom: 110px;
+            padding-bottom: 120px;
         }
 
         #bloqueo-pago {
@@ -72,11 +72,13 @@
             font-size: 22px; font-weight: bold; cursor: pointer;
         }
 
-        input, textarea {
+        select, input, textarea {
             width: 100%; background: #111; color: white;
             border: 1px solid #333; border-radius: 10px; padding: 12px;
             margin-top: 10px; box-sizing: border-box; font-size: 16px;
         }
+
+        label { display: block; margin-top: 20px; color: var(--dorado); font-weight: bold; font-size: 0.9em; }
 
         .footer {
             position: fixed; bottom: 0; width: 100%; background: #000;
@@ -108,7 +110,6 @@
         <img src="paila-china.png" class="logo-img" onerror="this.style.display='none'">
         <div class="titulo-app">LA PAILA CHINA</div>
         <div class="firma">Hecha por Vibras Positivas</div>
-        
         <div class="info-oficial">
             📍 Calle 11a N21-68 barrio el triangulo<br>
             📞 Contacto: 312 296 7241
@@ -125,17 +126,26 @@
         </div>
 
         <div id="menu-cont">
-            <div class="categoria-titulo">Almuerzos con Sopa</div>
-            <div id="items-almuerzos"></div>
+            <div class="categoria-titulo">Seleccione sus Sopas</div>
+            <div id="items-sopas"></div>
 
             <div class="categoria-titulo">Arroz Chino</div>
             <div id="items-arroz"></div>
 
             <div class="categoria-titulo">Combos Especiales</div>
             <div id="items-combos"></div>
+
+            <div class="categoria-titulo">Otros Almuerzos</div>
+            <div id="items-almuerzos"></div>
         </div>
 
-        <textarea id="obs" placeholder="Observaciones: (Ej. Sin cebolla, casa de rejas blancas...)"></textarea>
+        <label for="pago-metodo">Forma de Pago:</label>
+        <select id="pago-metodo">
+            <option value="Efectivo">Efectivo</option>
+            <option value="Transferencia">Transferencia (Nequi/Bancolombia)</option>
+        </select>
+
+        <textarea id="obs" placeholder="Observaciones: (Ej. Sin cebolla, casa de rejas blancas, cambio de 50 mil...)"></textarea>
     </div>
 
     <div class="footer">
@@ -148,19 +158,23 @@
 </div>
 
 <script>
-    /* ==========================================
-       CONTROL DE SUSCRIPCIÓN (ACTIVO)
-       ========================================== */
     const APP_ACTIVA = true; 
 
     const menuData = {
-        "mote": { n: "Mote, Mondongo o Sopa de Gallina", p: 21000, cat: "almuerzos" },
-        "frijoles": { n: "Frijoles o Sopa del día", p: 20000, cat: "almuerzos" },
+        // SOPAS SEPARADAS
+        "mote": { n: "Sopa de Mote", p: 21000, cat: "sopas" },
+        "mondongo": { n: "Sopa de Mondongo", p: 21000, cat: "sopas" },
+        "gallina": { n: "Sopa de Gallina", p: 21000, cat: "sopas" },
+        "frijoles": { n: "Frijoles con Sopa del día", p: 20000, cat: "almuerzos" },
+        
+        // ARROZ CHINO
         "arroz1": { n: "Arroz Chino Personal", p: 17000, cat: "arroz" },
         "arroz2": { n: "Arroz Chino 2 Personas", p: 23000, cat: "arroz" },
         "arroz4": { n: "Arroz Chino 4 Personas", p: 32000, cat: "arroz" },
         "arroz6": { n: "Arroz Chino 6 Personas", p: 40000, cat: "arroz" },
         "arroz9": { n: "Arroz Chino 9 Personas", p: 50000, cat: "arroz" },
+        
+        // COMBOS
         "mega": { n: "1 Pollo + Arroz Mega", p: 73000, cat: "combos" },
         "grande": { n: "1 Pollo + Arroz Grande", p: 63000, cat: "combos" },
         "mediano": { n: "1/2 Pollo + Arroz Mediano", p: 45000, cat: "combos" },
@@ -177,7 +191,7 @@
             document.getElementById('app-content').classList.add('oculto');
             return;
         }
-        if (!localStorage.getItem('p_user_v2')) {
+        if (!localStorage.getItem('p_user_v3')) {
             document.getElementById('registro').classList.remove('oculto');
             document.getElementById('menu-cont').classList.add('oculto');
         }
@@ -207,7 +221,7 @@
     function guardarU() {
         const n = document.getElementById('r-nom').value, d = document.getElementById('r-dir').value, t = document.getElementById('r-tel').value;
         if(n && d && t) {
-            localStorage.setItem('p_user_v2', JSON.stringify({n, d, t}));
+            localStorage.setItem('p_user_v3', JSON.stringify({n, d, t}));
             location.reload();
         } else alert("Por favor completa los datos de envío.");
     }
@@ -221,20 +235,24 @@
     }
 
     function enviarPedido() {
-        let total = 0, detalle = "", user = JSON.parse(localStorage.getItem('p_user_v2')), nPed = localStorage.getItem('p_cons');
+        let total = 0, detalle = "", user = JSON.parse(localStorage.getItem('p_user_v3')), nPed = localStorage.getItem('p_cons');
+        const pago = document.getElementById('pago-metodo').value;
+
         for (let k in carrito) {
             if (carrito[k] > 0) {
                 total += carrito[k] * menuData[k].p;
-                detalle += `• ${carrito[k]}x ${menuData[k].n} ($${(carrito[k] * menuData[k].p).toLocaleString('es-CO')})\n`;
+                detalle += `• ${carrito[k]}x ${menuData[k].n}\n`;
             }
         }
         if (total === 0) return alert("Selecciona productos para tu pedido.");
         
         const hora = new Date().toLocaleString("es-CO", {timeZone: "America/Bogota"});
-        let msg = `🏮 *NUEVO PEDIDO: LA PAILA CHINA* 🏮\n`;
-        msg += `*Pedido No:* #${nPed}\n*Fecha:* ${hora}\n\n`;
-        msg += `*CLIENTE:* ${user.n}\n*DIRECCIÓN:* ${user.d}\n*TEL:* ${user.t}\n\n`;
-        msg += `*PRODUCTOS:*\n${detalle}\n*TOTAL A PAGAR: $${total.toLocaleString('es-CO')}*\n\n`;
+        let msg = `🏮 *PEDIDO: LA PAILA CHINA* 🏮\n`;
+        msg += `*No:* #${nPed} | *Fecha:* ${hora}\n\n`;
+        msg += `*CLIENTE:* ${user.n}\n*DIR:* ${user.d}\n*TEL:* ${user.t}\n\n`;
+        msg += `*PRODUCTOS:*\n${detalle}\n`;
+        msg += `*FORMA DE PAGO:* ${pago}\n`;
+        msg += `*TOTAL A PAGAR: $${total.toLocaleString('es-CO')}*\n\n`;
         msg += `*OBS:* ${document.getElementById('obs').value || 'Ninguna'}`;
 
         localStorage.setItem('p_cons', parseInt(nPed) + 1);
