@@ -21,18 +21,25 @@
             padding-bottom: 100px;
         }
 
-        /* Encabezado y Logo */
+        /* PANTALLA DE BLOQUEO (TÚ CONTROLAS ESTO DESDE GITHUB) */
+        #pantalla-bloqueo {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
+            z-index: 99999;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+        }
+
         header {
             background-color: var(--rojo-china);
             text-align: center;
             padding: 20px;
             border-bottom: 4px solid var(--dorado);
-        }
-
-        .logo-container img {
-            max-width: 150px;
-            height: auto;
-            margin-bottom: 10px;
         }
 
         .titulo-restaurante {
@@ -47,23 +54,11 @@
             font-size: 0.85em;
             margin-top: 5px;
             color: var(--blanco);
-            line-height: 1.4;
-        }
-
-        /* Control de Suscripción */
-        .reloj-sub {
-            background: var(--dorado);
-            color: var(--negro);
-            font-size: 11px;
-            padding: 4px;
-            text-align: center;
-            font-weight: bold;
-            letter-spacing: 1px;
         }
 
         .container { padding: 20px; }
 
-        /* Formulario de Registro (Primera Vez) */
+        /* Formulario de Registro */
         #seccion-registro {
             background: var(--gris-oscuro);
             padding: 25px;
@@ -94,43 +89,14 @@
             border-left: 6px solid var(--rojo-china);
         }
 
-        .plato-img {
-            width: 90px;
-            height: 90px;
-            background: #444;
-            border-radius: 10px;
-            margin-right: 15px;
-            object-fit: cover;
-        }
-
         .plato-detalles { flex-grow: 1; }
+        .plato-nombre { font-weight: bold; color: var(--dorado); font-size: 1.1em; }
+        .plato-precio { color: #4CAF50; font-weight: bold; font-size: 1.1em; }
 
-        .plato-nombre {
-            font-weight: bold;
-            color: var(--dorado);
-            font-size: 1.1em;
-            margin-bottom: 4px;
-        }
-
-        .plato-desc {
-            font-size: 0.85em;
-            color: #ccc;
-            margin-bottom: 8px;
-        }
-
-        .plato-precio {
-            color: #4CAF50;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-
-        /* Controles de Cantidad */
         .controles {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 8px;
-            min-width: 40px;
+            gap: 12px;
         }
 
         .btn-accion {
@@ -145,13 +111,6 @@
             cursor: pointer;
         }
 
-        .cantidad-display {
-            font-weight: bold;
-            font-size: 18px;
-            color: var(--dorado);
-        }
-
-        /* Footer y Total */
         .footer-fixed {
             position: fixed;
             bottom: 0;
@@ -165,13 +124,6 @@
             box-sizing: border-box;
         }
 
-        .total-texto {
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-
-        .total-monto { color: var(--dorado); }
-
         .btn-finalizar {
             background: #25D366;
             color: white;
@@ -181,172 +133,151 @@
             font-weight: bold;
             font-size: 16px;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
         }
 
-        .oculto { display: none; }
+        .oculto { display: none !important; }
     </style>
 </head>
 <body>
 
-<div class="reloj-sub" id="status-suscripcion">Suscripción: Estado Activo ✅</div>
-
-<header>
-    <div class="logo-container">
-        <img src="logo.png" alt="LA PAILA CHINA" onerror="this.style.display='none'">
-        <div class="titulo-restaurante">La Paila China</div>
-    </div>
-    <div class="info-contacto">
-        📍 Dirección: Sector Principal, Caucasia<br>
-        📞 Domicilios: 311 770 0431
-    </div>
-</header>
-
-<div class="container">
-    <div id="seccion-registro" class="oculto">
-        <h2 style="color: var(--dorado); text-align: center;">¡Bienvenido!</h2>
-        <p style="text-align: center; font-size: 0.9em;">Ingresa tus datos de entrega para continuar. Se guardarán para tus próximos pedidos.</p>
-        <input type="text" id="user-nombre" placeholder="Nombre Apellido">
-        <input type="text" id="user-direccion" placeholder="Dirección de residencia / Local">
-        <input type="tel" id="user-tel" placeholder="Número de Celular">
-        <input type="email" id="user-email" placeholder="Correo electrónico">
-        <button onclick="registrarUsuario()" class="btn-finalizar" style="width: 100%; margin-top: 10px;">GUARDAR Y VER MENÚ</button>
-    </div>
-
-    <div id="seccion-menu">
-        <h3 style="border-bottom: 1px solid var(--rojo-china); padding-bottom: 10px;">Menú Principal</h3>
-        
-        <div class="plato-card">
-            <div class="plato-detalles">
-                <div class="plato-nombre">Arroz Especial Grande</div>
-                <div class="plato-desc">Arroz con lomo, pollo, raíces chinas y salsa de la casa.</div>
-                <div class="plato-precio">$28.000</div>
-            </div>
-            <div class="controles">
-                <button class="btn-accion" onclick="modificar('arroz', 1)">+</button>
-                <span class="cantidad-display" id="cnt-arroz">0</span>
-                <button class="btn-accion" onclick="modificar('arroz', -1)">-</button>
-            </div>
-        </div>
-
-        <div class="plato-card">
-            <div class="plato-detalles">
-                <div class="plato-nombre">Combo Lumpias (x4)</div>
-                <div class="plato-desc">Empanadillas chinas rellenas de vegetal y cerdo.</div>
-                <div class="plato-precio">$14.000</div>
-            </div>
-            <div class="controles">
-                <button class="btn-accion" onclick="modificar('lumpias', 1)">+</button>
-                <span class="cantidad-display" id="cnt-lumpias">0</span>
-                <button class="btn-accion" onclick="modificar('lumpias', -1)">-</button>
-            </div>
-        </div>
-
-        <h3 style="margin-top: 30px;">Instrucciones Adicionales</h3>
-        <textarea id="pedido-obs" rows="3" placeholder="Ej: La casa es azul, traer cambio de 50 mil, sin cebolla..."></textarea>
-    </div>
+<div id="pantalla-bloqueo">
+    <h1 style="font-size: 60px;">🏮</h1>
+    <h2 style="color: var(--dorado);">SERVICIO SUSPENDIDO</h2>
+    <p>La licencia de esta aplicación ha vencido o se encuentra en mantenimiento temporal.</p>
+    <p>Por favor, contacte al desarrollador para reactivar el servicio.</p>
 </div>
 
-<div class="footer-fixed">
-    <div class="total-texto">Total: <span class="total-monto" id="total-vta">$0</span></div>
-    <button class="btn-finalizar" onclick="procesarPedido()">Pedir por WhatsApp</button>
+<div id="app-body">
+    <header>
+        <div class="titulo-restaurante">La Paila China</div>
+        <div class="info-contacto">
+            📍 Caucasia, Antioquia<br>
+            📞 Pedidos: 311 770 0431
+        </div>
+    </header>
+
+    <div class="container">
+        <div id="seccion-registro" class="oculto">
+            <h3 style="color: var(--dorado); text-align: center; margin-top: 0;">¡Bienvenido!</h3>
+            <p style="font-size: 0.9em; text-align: center;">Ingresa tus datos de envío (se guardarán para futuros pedidos).</p>
+            <input type="text" id="reg-nombre" placeholder="Nombre Completo">
+            <input type="text" id="reg-direccion" placeholder="Dirección de Entrega">
+            <input type="tel" id="reg-tel" placeholder="Número de Celular">
+            <input type="email" id="reg-correo" placeholder="Correo Electrónico">
+            <button onclick="registrar()" class="btn-finalizar" style="width: 100%; margin-top: 10px; background: var(--rojo-china);">GUARDAR Y VER MENÚ</button>
+        </div>
+
+        <div id="seccion-menu">
+            <div class="plato-card">
+                <div class="plato-detalles">
+                    <div class="plato-nombre">Arroz Especial</div>
+                    <div style="font-size: 0.8em; color: #ccc; margin-bottom: 5px;">Lomo, pollo, raíces chinas y salsa soja.</div>
+                    <div class="plato-precio">$28.000</div>
+                </div>
+                <div class="controles">
+                    <button class="btn-accion" onclick="cambiarCant('arroz', -1)">-</button>
+                    <span id="cant-arroz" style="font-weight:bold; font-size:1.2em;">0</span>
+                    <button class="btn-accion" onclick="cambiarCant('arroz', 1)">+</button>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 25px; border-bottom: 1px solid #444;">Instrucciones Especiales</h3>
+            <textarea id="pedido-obs" rows="3" placeholder="Ej: Traer cambio de 50 mil, casa azul, sin cebolla..."></textarea>
+        </div>
+    </div>
+
+    <div class="footer-fixed">
+        <div style="font-size: 1.2em; font-weight: bold;">Total: <span id="total-display" style="color: var(--dorado);">$0</span></div>
+        <button class="btn-finalizar" onclick="enviarWhatsApp()">Pedir por WhatsApp</button>
+    </div>
 </div>
 
 <script>
-    // Configuración Inicial
+    /* ==========================================
+       LLAVE MAESTRA DE COBRO (CONTROL TOTAL)
+       ========================================== */
+    const APP_ACTIVA = true; // CAMBIA A "false" PARA BLOQUEAR TODO DESDE GITHUB
+    /* ========================================== */
+
     const menu = {
-        arroz: { nombre: "Arroz Especial Grande", precio: 28000, cant: 0 },
-        lumpias: { nombre: "Combo Lumpias (x4)", precio: 14000, cant: 0 }
+        arroz: { nombre: "Arroz Especial", precio: 28000, cant: 0 }
     };
 
     window.onload = function() {
-        const usuarioExistente = localStorage.getItem('paila_china_user');
-        if (!usuarioExistente) {
+        // 1. Verificar bloqueo
+        if (!APP_ACTIVA) {
+            document.getElementById('pantalla-bloqueo').style.display = 'flex';
+            document.getElementById('app-body').classList.add('oculto');
+            return;
+        }
+
+        // 2. Verificar si hay usuario en memoria
+        if (!localStorage.getItem('user_paila_china')) {
             document.getElementById('seccion-registro').classList.remove('oculto');
             document.getElementById('seccion-menu').classList.add('oculto');
         }
         
-        if(!localStorage.getItem('paila_consecutivo')) {
-            localStorage.setItem('paila_consecutivo', 1);
-        }
+        // 3. Inicializar consecutivo
+        if (!localStorage.getItem('cons_paila')) localStorage.setItem('cons_paila', 1);
     };
 
-    function registrarUsuario() {
-        const datos = {
-            nombre: document.getElementById('user-nombre').value,
-            dir: document.getElementById('user-direccion').value,
-            tel: document.getElementById('user-tel').value,
-            mail: document.getElementById('user-email').value
+    function registrar() {
+        const u = {
+            n: document.getElementById('reg-nombre').value,
+            d: document.getElementById('reg-direccion').value,
+            t: document.getElementById('reg-tel').value,
+            e: document.getElementById('reg-correo').value
         };
-
-        if(datos.nombre && datos.dir && datos.tel) {
-            localStorage.setItem('paila_china_user', JSON.stringify(datos));
-            alert("¡Datos guardados con éxito!");
+        if (u.n && u.d && u.t) {
+            localStorage.setItem('user_paila_china', JSON.stringify(u));
             location.reload();
         } else {
-            alert("Por favor completa los campos obligatorios.");
+            alert("Por favor, llena los campos obligatorios.");
         }
     }
 
-    function modificar(item, valor) {
-        menu[item].cant = Math.max(0, menu[item].cant + valor);
-        document.getElementById(`cnt-${item}`).innerText = menu[item].cant;
-        actualizarTotal();
-    }
-
-    function actualizarTotal() {
+    function cambiarCant(item, val) {
+        menu[item].cant = Math.max(0, menu[item].cant + val);
+        document.getElementById(`cant-${item}`).innerText = menu[item].cant;
         let total = 0;
-        for (let clave in menu) {
-            total += menu[clave].cant * menu[clave].precio;
-        }
-        document.getElementById('total-vta').innerText = "$" + total.toLocaleString('es-CO');
-        return total;
+        for (let k in menu) total += menu[k].cant * menu[k].precio;
+        document.getElementById('total-display').innerText = "$" + total.toLocaleString('es-CO');
     }
 
-    function procesarPedido() {
-        const total = actualizarTotal();
-        if (total === 0) {
-            alert("Debes seleccionar al menos un plato.");
-            return;
-        }
+    function enviarWhatsApp() {
+        let totalPedido = 0;
+        for (let k in menu) totalPedido += menu[k].cant * menu[k].precio;
 
-        const confirmacion = confirm("¿Deseas verificar y enviar tu pedido ahora?");
-        if (!confirmacion) return;
+        if (totalPedido === 0) return alert("Selecciona al menos un plato.");
 
-        const user = JSON.parse(localStorage.getItem('paila_china_user'));
-        const consecutivo = localStorage.getItem('paila_consecutivo');
+        const user = JSON.parse(localStorage.getItem('user_paila_china'));
+        const consecutivo = localStorage.getItem('cons_paila');
         const obs = document.getElementById('pedido-obs').value;
-        const horaColombia = new Date().toLocaleString("es-CO", {timeZone: "America/Bogota"});
+        const fecha = new Date().toLocaleString("es-CO", {timeZone: "America/Bogota"});
 
         // CONSTRUCCIÓN DEL MENSAJE
-        let msg = "🏮 *NUEVO PEDIDO: LA PAILA CHINA* 🏮\n";
-        msg += "------------------------------------------\n";
-        msg += "*PEDIDO N°:* " + consecutivo + "\n";
-        msg += "*FECHA:* " + horaColombia + "\n\n";
-        
-        msg += "*CLIENTE:* " + user.nombre + "\n";
-        msg += "*DIRECCIÓN:* " + user.dir + "\n";
-        msg += "*TEL:* " + user.tel + "\n\n";
-        
-        msg += "*PRODUCTOS:* \n";
-        for (let clave in menu) {
-            if (menu[clave].cant > 0) {
-                let subtotal = menu[clave].cant * menu[clave].precio;
-                msg += "• " + menu[clave].cant + "x " + menu[clave].nombre + " ($" + subtotal.toLocaleString('es-CO') + ")\n";
+        let msg = `🏮 *NUEVO PEDIDO: LA PAILA CHINA* 🏮\n`;
+        msg += `----------------------------------\n`;
+        msg += `*Pedido No:* #${consecutivo}\n`;
+        msg += `*Fecha:* ${fecha}\n\n`;
+        msg += `*CLIENTE:* ${user.n}\n`;
+        msg += `*DIR:* ${user.d}\n`;
+        msg += `*TEL:* ${user.t}\n\n`;
+        msg += `*DETALLE:* \n`;
+        for (let k in menu) {
+            if (menu[k].cant > 0) {
+                msg += `• ${menu[k].cant}x ${menu[k].nombre} ($${(menu[k].cant * menu[k].precio).toLocaleString('es-CO')})\n`;
             }
         }
+        msg += `\n📝 *OBS:* ${obs || 'Ninguna'}\n`;
+        msg += `----------------------------------\n`;
+        msg += `💰 *TOTAL A PAGAR: $${totalPedido.toLocaleString('es-CO')}*`;
 
-        msg += "\n📝 *OBS:* " + (obs ? obs : "Sin observaciones") + "\n";
-        msg += "------------------------------------------\n";
-        msg += "💰 *TOTAL A PAGAR: $" + total.toLocaleString('es-CO') + "*\n";
-        msg += "------------------------------------------";
+        // Guardar nuevo consecutivo
+        localStorage.setItem('cons_paila', parseInt(consecutivo) + 1);
 
-        // Incrementar consecutivo para la próxima vez
-        localStorage.setItem('paila_consecutivo', parseInt(consecutivo) + 1);
-
-        // Envío seguro a WhatsApp
-        const url = "https://wa.me/573117700431?text=" + encodeURIComponent(msg);
-        window.open(url, '_blank');
+        // Abrir WhatsApp
+        window.open(`https://wa.me/573117700431?text=${encodeURIComponent(msg)}`, '_blank');
     }
 </script>
 
