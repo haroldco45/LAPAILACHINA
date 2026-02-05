@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LA PAILA CHINA - Pedidos</title>
+    <style>
+        :root {
+            --rojo-china: #CC0000;
+            --dorado: #FFD700;
+            --negro: #1a1a1a;
+            --blanco: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--negro);
+            color: var(--blanco);
+            margin: 0;
+            padding-bottom: 80px;
+        }
+
+        header {
+            background-color: var(--rojo-china);
+            text-align: center;
+            padding: 20px;
+            border-bottom: 4px solid var(--dorado);
+        }
+
+        .logo-placeholder {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--dorado);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .info-contacto {
+            font-size: 0.9em;
+            margin-top: 5px;
+            color: var(--blanco);
+        }
+
+        .reloj-sub {
+            background: var(--dorado);
+            color: var(--negro);
+            font-size: 12px;
+            padding: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .container { padding: 15px; }
+
+        /* Formulario Inicial */
+        #registro-usuario {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #444;
+            box-sizing: border-box;
+        }
+
+        /* Card de Platos */
+        .plato-card {
+            background: #2a2a2a;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--rojo-china);
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .plato-img {
+            width: 80px;
+            height: 80px;
+            background: #444;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+
+        .plato-info { flex-grow: 1; }
+        .plato-titulo { font-weight: bold; color: var(--dorado); }
+        .plato-precio { color: #00ff00; font-weight: bold; }
+
+        .controles-cantidad {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-cant {
+            background: var(--rojo-china);
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Footer Fijo */
+        .footer-pedido {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: var(--rojo-china);
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
+        }
+
+        .btn-enviar {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .oculto { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="reloj-sub" id="reloj-sub">Suscripción Activa: Control de Pago OK</div>
+
+<header>
+    <div class="logo-placeholder">🏮 LA PAILA CHINA 🏮</div>
+    <div class="info-contacto">
+        Calle Ficticia 123 - Sector Centro<br>
+        WhatsApp: 3117700431
+    </div>
+</header>
+
+<div class="container">
+    <div id="seccion-registro" class="oculto">
+        <h3>Datos de Entrega</h3>
+        <p><small>Solo la primera vez para guardar en memoria.</small></p>
+        <input type="text" id="reg-nombre" placeholder="Nombre Completo">
+        <input type="text" id="reg-dir" placeholder="Dirección Exacta">
+        <input type="text" id="reg-tel" placeholder="Celular">
+        <input type="email" id="reg-correo" placeholder="Correo Electrónico">
+        <button onclick="guardarUsuario()" class="btn-enviar" style="width:100%">Empezar a pedir</button>
+    </div>
+
+    <div id="seccion-menu">
+        <div class="plato-card">
+            <div class="plato-img"></div>
+            <div class="plato-info">
+                <div class="plato-titulo">Arroz Especial La Paila</div>
+                <div class="plato-precio">$25.000</div>
+            </div>
+            <div class="controles-cantidad">
+                <button class="btn-cant" onclick="cambiarCant('arroz', -1)">-</button>
+                <span id="cant-arroz">0</span>
+                <button class="btn-cant" onclick="cambiarCant('arroz', 1)">+</button>
+            </div>
+        </div>
+
+        <div class="plato-card">
+            <div class="plato-img"></div>
+            <div class="plato-info">
+                <div class="plato-titulo">Lumpias x4 unidades</div>
+                <div class="plato-precio">$12.000</div>
+            </div>
+            <div class="controles-cantidad">
+                <button class="btn-cant" onclick="cambiarCant('lumpias', -1)">-</button>
+                <span id="cant-lumpias">0</span>
+                <button class="btn-cant" onclick="cambiarCant('lumpias', 1)">+</button>
+            </div>
+        </div>
+
+        <textarea id="observaciones" placeholder="Observaciones: (Ej. Casa azul, traer cambio de 50mil...)"></textarea>
+    </div>
+</div>
+
+<div class="footer-pedido">
+    <div>Total: <span id="total-vta">$0</span></div>
+    <button class="btn-enviar" onclick="verificarPedido()">Enviar a WhatsApp</button>
+</div>
+
+<script>
+    let pedido = { arroz: 0, lumpias: 0 };
+    const precios = { arroz: 25000, lumpias: 12000 };
+
+    // 1. Verificar si hay usuario en memoria
+    window.onload = function() {
+        if(!localStorage.getItem('user_paila')) {
+            document.getElementById('seccion-registro').classList.remove('oculto');
+            document.getElementById('seccion-menu').classList.add('oculto');
+        }
+        actualizarConsecutivo();
+    };
+
+    function guardarUsuario() {
+        const user = {
+            nombre: document.getElementById('reg-nombre').value,
+            dir: document.getElementById('reg-dir').value,
+            tel: document.getElementById('reg-tel').value,
+            mail: document.getElementById('reg-correo').value
+        };
+        if(user.nombre && user.dir && user.tel) {
+            localStorage.setItem('user_paila', JSON.stringify(user));
+            location.reload();
+        } else {
+            alert("Por favor llena los datos de contacto.");
+        }
+    }
+
+    function cambiarCant(item, val) {
+        pedido[item] = Math.max(0, pedido[item] + val);
+        document.getElementById(`cant-${item}`).innerText = pedido[item];
+        calcularTotal();
+    }
+
+    function calcularTotal() {
+        let total = (pedido.arroz * precios.arroz) + (pedido.lumpias * precios.lumpias);
+        document.getElementById('total-vta').innerText = "$" + total.toLocaleString();
+        return total;
+    }
+
+    function actualizarConsecutivo() {
+        if(!localStorage.getItem('consecutivo')) localStorage.setItem('consecutivo', 100);
+    }
+
+    function verificarPedido() {
+        const total = calcularTotal();
+        if(total === 0) return alert("Agrega al menos un plato.");
+
+        const user = JSON.parse(localStorage.getItem('user_paila'));
+        const obs = document.getElementById('observaciones').value;
+        const numPedido = localStorage.getItem('consecutivo');
+        const fecha = new Date().toLocaleString("es-CO", {timeZone: "America/Bogota"});
+
+        // Formatear mensaje para WhatsApp
+        let texto = `🏮 *NUEVO PEDIDO: LA PAILA CHINA* 🏮%0A`;
+        texto += `*Pedido No:* #${numPedido}%0A`;
+        texto += `*Fecha:* ${fecha}%0A%0A`;
+        texto += `*CLIENTE:* ${user.nombre}%0A`;
+        texto += `*DIRECCIÓN:* ${user.dir}%0A`;
+        texto += `*TEL:* ${user.tel}%0A%0A`;
+        texto += `*DETALLE:*%0A`;
+        if(pedido.arroz > 0) texto += `- ${pedido.arroz} Arroz Especial ($${(pedido.arroz * precios.arroz)})%0A`;
+        if(pedido.lumpias > 0) texto += `- ${pedido.lumpias} Lumpias ($${(pedido.lumpias * precios.lumpias)})%0A`;
+        texto += `%0A*OBS:* ${obs || 'Ninguna'}%0A`;
+        texto += `%0A*TOTAL A PAGAR: $${total.toLocaleString()}*%0A`;
+
+        // Incrementar consecutivo
+        localStorage.setItem('consecutivo', parseInt(numPedido) + 1);
+
+        // Enviar
+        window.open(`https://wa.me/573117700431?text=${texto}`, '_blank');
+    }
+</script>
+
+</body>
+</html>
