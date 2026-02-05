@@ -10,16 +10,18 @@
             --dorado: #FFD700;
             --negro: #1a1a1a;
             --blanco: #ffffff;
+            --gris-oscuro: #2a2a2a;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--negro);
             color: var(--blanco);
             margin: 0;
-            padding-bottom: 80px;
+            padding-bottom: 100px;
         }
 
+        /* Encabezado y Logo */
         header {
             background-color: var(--rojo-china);
             text-align: center;
@@ -27,108 +29,159 @@
             border-bottom: 4px solid var(--dorado);
         }
 
-        .logo-placeholder {
-            font-size: 24px;
+        .logo-container img {
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .titulo-restaurante {
+            font-size: 26px;
             font-weight: bold;
             color: var(--dorado);
             text-transform: uppercase;
-            letter-spacing: 2px;
+            margin: 0;
         }
 
         .info-contacto {
-            font-size: 0.9em;
+            font-size: 0.85em;
             margin-top: 5px;
             color: var(--blanco);
+            line-height: 1.4;
         }
 
+        /* Control de Suscripción */
         .reloj-sub {
             background: var(--dorado);
             color: var(--negro);
-            font-size: 12px;
-            padding: 5px;
+            font-size: 11px;
+            padding: 4px;
             text-align: center;
             font-weight: bold;
+            letter-spacing: 1px;
         }
 
-        .container { padding: 15px; }
+        .container { padding: 20px; }
 
-        /* Formulario Inicial */
-        #registro-usuario {
-            background: #2a2a2a;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+        /* Formulario de Registro (Primera Vez) */
+        #seccion-registro {
+            background: var(--gris-oscuro);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid var(--dorado);
         }
 
         input, textarea {
             width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
             border: 1px solid #444;
+            background: #111;
+            color: white;
             box-sizing: border-box;
+            font-size: 16px;
         }
 
-        /* Card de Platos */
+        /* Cards de Menú */
         .plato-card {
-            background: #2a2a2a;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            border-left: 5px solid var(--rojo-china);
+            background: var(--gris-oscuro);
+            border-radius: 12px;
             display: flex;
             align-items: center;
-            padding: 10px;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-left: 6px solid var(--rojo-china);
         }
 
         .plato-img {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             background: #444;
-            border-radius: 8px;
+            border-radius: 10px;
             margin-right: 15px;
+            object-fit: cover;
         }
 
-        .plato-info { flex-grow: 1; }
-        .plato-titulo { font-weight: bold; color: var(--dorado); }
-        .plato-precio { color: #00ff00; font-weight: bold; }
+        .plato-detalles { flex-grow: 1; }
 
-        .controles-cantidad {
+        .plato-nombre {
+            font-weight: bold;
+            color: var(--dorado);
+            font-size: 1.1em;
+            margin-bottom: 4px;
+        }
+
+        .plato-desc {
+            font-size: 0.85em;
+            color: #ccc;
+            margin-bottom: 8px;
+        }
+
+        .plato-precio {
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        /* Controles de Cantidad */
+        .controles {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            min-width: 40px;
         }
 
-        .btn-cant {
+        .btn-accion {
             background: var(--rojo-china);
             color: white;
             border: none;
-            padding: 5px 12px;
-            border-radius: 4px;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 20px;
             cursor: pointer;
         }
 
-        /* Footer Fijo */
-        .footer-pedido {
+        .cantidad-display {
+            font-weight: bold;
+            font-size: 18px;
+            color: var(--dorado);
+        }
+
+        /* Footer y Total */
+        .footer-fixed {
             position: fixed;
             bottom: 0;
             width: 100%;
-            background: var(--rojo-china);
-            padding: 15px;
+            background: #000;
+            border-top: 3px solid var(--rojo-china);
+            padding: 15px 20px;
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
+            box-sizing: border-box;
         }
 
-        .btn-enviar {
+        .total-texto {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .total-monto { color: var(--dorado); }
+
+        .btn-finalizar {
             background: #25D366;
             color: white;
             border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
+            padding: 12px 20px;
+            border-radius: 30px;
             font-weight: bold;
+            font-size: 16px;
             cursor: pointer;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
         }
 
         .oculto { display: none; }
@@ -136,134 +189,164 @@
 </head>
 <body>
 
-<div class="reloj-sub" id="reloj-sub">Suscripción Activa: Control de Pago OK</div>
+<div class="reloj-sub" id="status-suscripcion">Suscripción: Estado Activo ✅</div>
 
 <header>
-    <div class="logo-placeholder">🏮 LA PAILA CHINA 🏮</div>
+    <div class="logo-container">
+        <img src="logo.png" alt="LA PAILA CHINA" onerror="this.style.display='none'">
+        <div class="titulo-restaurante">La Paila China</div>
+    </div>
     <div class="info-contacto">
-        Calle Ficticia 123 - Sector Centro<br>
-        WhatsApp: 3117700431
+        📍 Dirección: Sector Principal, Caucasia<br>
+        📞 Domicilios: 311 770 0431
     </div>
 </header>
 
 <div class="container">
     <div id="seccion-registro" class="oculto">
-        <h3>Datos de Entrega</h3>
-        <p><small>Solo la primera vez para guardar en memoria.</small></p>
-        <input type="text" id="reg-nombre" placeholder="Nombre Completo">
-        <input type="text" id="reg-dir" placeholder="Dirección Exacta">
-        <input type="text" id="reg-tel" placeholder="Celular">
-        <input type="email" id="reg-correo" placeholder="Correo Electrónico">
-        <button onclick="guardarUsuario()" class="btn-enviar" style="width:100%">Empezar a pedir</button>
+        <h2 style="color: var(--dorado); text-align: center;">¡Bienvenido!</h2>
+        <p style="text-align: center; font-size: 0.9em;">Ingresa tus datos de entrega para continuar. Se guardarán para tus próximos pedidos.</p>
+        <input type="text" id="user-nombre" placeholder="Nombre Apellido">
+        <input type="text" id="user-direccion" placeholder="Dirección de residencia / Local">
+        <input type="tel" id="user-tel" placeholder="Número de Celular">
+        <input type="email" id="user-email" placeholder="Correo electrónico">
+        <button onclick="registrarUsuario()" class="btn-finalizar" style="width: 100%; margin-top: 10px;">GUARDAR Y VER MENÚ</button>
     </div>
 
     <div id="seccion-menu">
+        <h3 style="border-bottom: 1px solid var(--rojo-china); padding-bottom: 10px;">Menú Principal</h3>
+        
         <div class="plato-card">
-            <div class="plato-img"></div>
-            <div class="plato-info">
-                <div class="plato-titulo">Arroz Especial La Paila</div>
-                <div class="plato-precio">$25.000</div>
+            <div class="plato-detalles">
+                <div class="plato-nombre">Arroz Especial Grande</div>
+                <div class="plato-desc">Arroz con lomo, pollo, raíces chinas y salsa de la casa.</div>
+                <div class="plato-precio">$28.000</div>
             </div>
-            <div class="controles-cantidad">
-                <button class="btn-cant" onclick="cambiarCant('arroz', -1)">-</button>
-                <span id="cant-arroz">0</span>
-                <button class="btn-cant" onclick="cambiarCant('arroz', 1)">+</button>
+            <div class="controles">
+                <button class="btn-accion" onclick="modificar('arroz', 1)">+</button>
+                <span class="cantidad-display" id="cnt-arroz">0</span>
+                <button class="btn-accion" onclick="modificar('arroz', -1)">-</button>
             </div>
         </div>
 
         <div class="plato-card">
-            <div class="plato-img"></div>
-            <div class="plato-info">
-                <div class="plato-titulo">Lumpias x4 unidades</div>
-                <div class="plato-precio">$12.000</div>
+            <div class="plato-detalles">
+                <div class="plato-nombre">Combo Lumpias (x4)</div>
+                <div class="plato-desc">Empanadillas chinas rellenas de vegetal y cerdo.</div>
+                <div class="plato-precio">$14.000</div>
             </div>
-            <div class="controles-cantidad">
-                <button class="btn-cant" onclick="cambiarCant('lumpias', -1)">-</button>
-                <span id="cant-lumpias">0</span>
-                <button class="btn-cant" onclick="cambiarCant('lumpias', 1)">+</button>
+            <div class="controles">
+                <button class="btn-accion" onclick="modificar('lumpias', 1)">+</button>
+                <span class="cantidad-display" id="cnt-lumpias">0</span>
+                <button class="btn-accion" onclick="modificar('lumpias', -1)">-</button>
             </div>
         </div>
 
-        <textarea id="observaciones" placeholder="Observaciones: (Ej. Casa azul, traer cambio de 50mil...)"></textarea>
+        <h3 style="margin-top: 30px;">Instrucciones Adicionales</h3>
+        <textarea id="pedido-obs" rows="3" placeholder="Ej: La casa es azul, traer cambio de 50 mil, sin cebolla..."></textarea>
     </div>
 </div>
 
-<div class="footer-pedido">
-    <div>Total: <span id="total-vta">$0</span></div>
-    <button class="btn-enviar" onclick="verificarPedido()">Enviar a WhatsApp</button>
+<div class="footer-fixed">
+    <div class="total-texto">Total: <span class="total-monto" id="total-vta">$0</span></div>
+    <button class="btn-finalizar" onclick="procesarPedido()">Pedir por WhatsApp</button>
 </div>
 
 <script>
-    let pedido = { arroz: 0, lumpias: 0 };
-    const precios = { arroz: 25000, lumpias: 12000 };
+    // Configuración Inicial
+    const menu = {
+        arroz: { nombre: "Arroz Especial Grande", precio: 28000, cant: 0 },
+        lumpias: { nombre: "Combo Lumpias (x4)", precio: 14000, cant: 0 }
+    };
 
-    // 1. Verificar si hay usuario en memoria
     window.onload = function() {
-        if(!localStorage.getItem('user_paila')) {
+        const usuarioExistente = localStorage.getItem('paila_china_user');
+        if (!usuarioExistente) {
             document.getElementById('seccion-registro').classList.remove('oculto');
             document.getElementById('seccion-menu').classList.add('oculto');
         }
-        actualizarConsecutivo();
+        
+        if(!localStorage.getItem('paila_consecutivo')) {
+            localStorage.setItem('paila_consecutivo', 1);
+        }
     };
 
-    function guardarUsuario() {
-        const user = {
-            nombre: document.getElementById('reg-nombre').value,
-            dir: document.getElementById('reg-dir').value,
-            tel: document.getElementById('reg-tel').value,
-            mail: document.getElementById('reg-correo').value
+    function registrarUsuario() {
+        const datos = {
+            nombre: document.getElementById('user-nombre').value,
+            dir: document.getElementById('user-direccion').value,
+            tel: document.getElementById('user-tel').value,
+            mail: document.getElementById('user-email').value
         };
-        if(user.nombre && user.dir && user.tel) {
-            localStorage.setItem('user_paila', JSON.stringify(user));
+
+        if(datos.nombre && datos.dir && datos.tel) {
+            localStorage.setItem('paila_china_user', JSON.stringify(datos));
+            alert("¡Datos guardados con éxito!");
             location.reload();
         } else {
-            alert("Por favor llena los datos de contacto.");
+            alert("Por favor completa los campos obligatorios.");
         }
     }
 
-    function cambiarCant(item, val) {
-        pedido[item] = Math.max(0, pedido[item] + val);
-        document.getElementById(`cant-${item}`).innerText = pedido[item];
-        calcularTotal();
+    function modificar(item, valor) {
+        menu[item].cant = Math.max(0, menu[item].cant + valor);
+        document.getElementById(`cnt-${item}`).innerText = menu[item].cant;
+        actualizarTotal();
     }
 
-    function calcularTotal() {
-        let total = (pedido.arroz * precios.arroz) + (pedido.lumpias * precios.lumpias);
-        document.getElementById('total-vta').innerText = "$" + total.toLocaleString();
+    function actualizarTotal() {
+        let total = 0;
+        for (let clave in menu) {
+            total += menu[clave].cant * menu[clave].precio;
+        }
+        document.getElementById('total-vta').innerText = "$" + total.toLocaleString('es-CO');
         return total;
     }
 
-    function actualizarConsecutivo() {
-        if(!localStorage.getItem('consecutivo')) localStorage.setItem('consecutivo', 100);
-    }
+    function procesarPedido() {
+        const total = actualizarTotal();
+        if (total === 0) {
+            alert("Debes seleccionar al menos un plato.");
+            return;
+        }
 
-    function verificarPedido() {
-        const total = calcularTotal();
-        if(total === 0) return alert("Agrega al menos un plato.");
+        const confirmacion = confirm("¿Deseas verificar y enviar tu pedido ahora?");
+        if (!confirmacion) return;
 
-        const user = JSON.parse(localStorage.getItem('user_paila'));
-        const obs = document.getElementById('observaciones').value;
-        const numPedido = localStorage.getItem('consecutivo');
-        const fecha = new Date().toLocaleString("es-CO", {timeZone: "America/Bogota"});
+        const user = JSON.parse(localStorage.getItem('paila_china_user'));
+        const consecutivo = localStorage.getItem('paila_consecutivo');
+        const obs = document.getElementById('pedido-obs').value;
+        const horaColombia = new Date().toLocaleString("es-CO", {timeZone: "America/Bogota"});
 
-        // Formatear mensaje para WhatsApp
-        let texto = `🏮 *NUEVO PEDIDO: LA PAILA CHINA* 🏮%0A`;
-        texto += `*Pedido No:* #${numPedido}%0A`;
-        texto += `*Fecha:* ${fecha}%0A%0A`;
-        texto += `*CLIENTE:* ${user.nombre}%0A`;
-        texto += `*DIRECCIÓN:* ${user.dir}%0A`;
-        texto += `*TEL:* ${user.tel}%0A%0A`;
-        texto += `*DETALLE:*%0A`;
-        if(pedido.arroz > 0) texto += `- ${pedido.arroz} Arroz Especial ($${(pedido.arroz * precios.arroz)})%0A`;
-        if(pedido.lumpias > 0) texto += `- ${pedido.lumpias} Lumpias ($${(pedido.lumpias * precios.lumpias)})%0A`;
-        texto += `%0A*OBS:* ${obs || 'Ninguna'}%0A`;
-        texto += `%0A*TOTAL A PAGAR: $${total.toLocaleString()}*%0A`;
+        // CONSTRUCCIÓN DEL MENSAJE
+        let msg = "🏮 *NUEVO PEDIDO: LA PAILA CHINA* 🏮\n";
+        msg += "------------------------------------------\n";
+        msg += "*PEDIDO N°:* " + consecutivo + "\n";
+        msg += "*FECHA:* " + horaColombia + "\n\n";
+        
+        msg += "*CLIENTE:* " + user.nombre + "\n";
+        msg += "*DIRECCIÓN:* " + user.dir + "\n";
+        msg += "*TEL:* " + user.tel + "\n\n";
+        
+        msg += "*PRODUCTOS:* \n";
+        for (let clave in menu) {
+            if (menu[clave].cant > 0) {
+                let subtotal = menu[clave].cant * menu[clave].precio;
+                msg += "• " + menu[clave].cant + "x " + menu[clave].nombre + " ($" + subtotal.toLocaleString('es-CO') + ")\n";
+            }
+        }
 
-        // Incrementar consecutivo
-        localStorage.setItem('consecutivo', parseInt(numPedido) + 1);
+        msg += "\n📝 *OBS:* " + (obs ? obs : "Sin observaciones") + "\n";
+        msg += "------------------------------------------\n";
+        msg += "💰 *TOTAL A PAGAR: $" + total.toLocaleString('es-CO') + "*\n";
+        msg += "------------------------------------------";
 
-        // Enviar
-        window.open(`https://wa.me/573117700431?text=${texto}`, '_blank');
+        // Incrementar consecutivo para la próxima vez
+        localStorage.setItem('paila_consecutivo', parseInt(consecutivo) + 1);
+
+        // Envío seguro a WhatsApp
+        const url = "https://wa.me/573117700431?text=" + encodeURIComponent(msg);
+        window.open(url, '_blank');
     }
 </script>
 
